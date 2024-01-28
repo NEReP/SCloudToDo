@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=PT+Sans+Caption:wght@400;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="./css/style.min.css">
+   <title>
+      ToDo List
+   </title>
+</head>
+<body>
+  <div class="wrapper">
+     <main class="main">
+        <div class="container">
+           <h1 class="title">ToDo List </h1>
+           <section class="top">
+              <div class="top__wrapper flex">
+                 <div class="current">
+                    <h3>Текущие задачи</h3>
+                    <ul class="current__list" id="task-list">
+                       <li class="current__item current__item-open"><img src="./img/icons/status-icon blue.svg" alt=""><span>Открыто:</span><span class="openCounter"></span></li>
+                       <li class="current__item current__item-at-work"><img src="./img/icons/status-icon green.svg" alt=""><span>В работе:</span><span class="inProgressCounter"></span></li>
+                       <li class="current__item current__item-done"><img src="./img/icons/status-icon red.svg" alt=""><span> Закрыто:</span><span class="closedCounter"></span></li>
+                    </ul>
+                 </div>
+                 <div class="add-task">
+                    <h3 >Добавить задачу</h3>
+                    <div class="add-task__wrapper flex ">
+                       <button class="add" id="addTaskButton"><img src="./img/icons/plus.svg" alt=""><span>Добавить задачу</span></button>
+                       <div class="input-wrapper">
+                           <input type="text" placeholder="Текст"  oninput="toggleClearButton()" class="add-task__input">
+                           <button class="del"><img src="./img/icons/x.svg" alt=""></button>
+                       </div>
+                       <div class="alert">Пожалуйста напишите текст задачи</div>
+                    </div>
+                 </div>
+              </div>
+     
+           </section>
+           <section class="tasks">
+            <div class="popup-bc"></div>
+            <div class="popup" id="taskPopup">
+               <div class="popClose" id="popupClose"></div>
+               <h2 class="title">
+                  Изменение задачи
+               </h2>
+               <input type="text" class="popup__input" id="popupTaskText" placeholder="Текст">
+               <div class="popup__wrapper">                  
+               </div>
+               <div class="popup__btns" id="applyChanges">
+                  <button class="add">Применить</button>
+                  <button class="del" id="deleteTaskButton">Удалить задачу</button>
+               </div>
+               <div ></div>
+            </div>
+              <div class="tasks__top flex">
+                 <span>Задачи</span>
+                 <span>Статус</span>
+              </div>
+              <ul class="tasks__list" id="tasksList">
+                 <!-- <li class="tasks__item"><span >Сварить пельмени</span><button class="tasks__status">В работе</button></li>
+                 <li class="tasks__item"><span >Поднять инфрастуктуру проекта</span><button class="tasks__status">В работе</button></li>
+                 <li class="tasks__item"><span >Проснуться, улыбнуться, сделать отжимания, слетать на Марс и прочитать книгу</span><button class="tasks__status">В работе</button></li>
+                 <li class="tasks__item"><span >Поругаться с девопсом</span><button class="tasks__status">В работе</button></li>
+                 <li class="tasks__item"><span >Спеть - Знаешь ли ты, вдоль ночных дорог</span><button class="tasks__status">В работе</button></li> -->
+              </ul>
+              <div class="showMore"><button class="showMore__btn">Показать больше</button></div>
+           </section>
+           <section class="task-board">
+              <h2 class="title">Доска задач</h2>
+              <div class="task-board__wrapper flex">
+                 <div class="column" >
+                    <h3>Открыто </h3>
+                    <ul class="task-board__list" id="open" ondrop="drop(event)" ondragover="allowDrop(event)">
+                       <!-- <li class="task-board__item">Сварить пельмени</li>
+                       <li class="task-board__item">Поднять инфрастуктуру проекта</li> -->
+                    </ul>
+                 </div>
+                 <div class="column" >
+                    <h3>В работе</h3>
+                    <ul class="task-board__list" id="at-work" ondrop="drop(event)" ondragover="allowDrop(event)">
+                       <!-- <li class="task-board__item">Проснуться, улыбнуться, сделать отжимания, слетать на Марс и прочитать книгу</li>
+                       <li class="task-board__item">Поругаться с девопсом</li> -->
+                    </ul>
+                 </div>
+                 <div class="column" >
+                    <h3>Закрыто</h3>
+                    <ul class="task-board__list" id="closed" ondrop="drop(event)" ondragover="allowDrop(event)">
+                       <!-- <li class="task-board__item">Спеть - Знаешь ли ты, вдоль ночных дорог</li> -->
+                    </ul>
+                 </div>
+              </div>
+           </section>
+        </div>
+     </main>
+     <footer class="footer">
+     </footer>
+  </div>
+</body>
+<script src="./js/main.js"></script>
+</html>

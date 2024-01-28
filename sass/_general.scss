@@ -1,0 +1,299 @@
+body{
+   font-family: "PT Sans Caption", sans-serif;
+   font-weight: 400;
+   font-style: normal;
+}
+h3{
+   font-family: "PT Sans Caption";
+   font-size: 24px;
+   font-style: normal;
+   font-weight: 700;
+   line-height: 32px;
+   margin-bottom: 24px;
+
+}
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+ }
+ .main {
+   flex: 1 0 auto;
+ }
+ .footer {
+   height: 144px;
+   border-radius: 48px 48px 0px 0px;
+   background: #BBB8B6;
+   flex: 0 0 auto;
+ }
+
+.container{
+   max-width: 1220px;
+   margin: 0 auto;
+   padding: 64px 10px;
+}
+.title{
+   font-family: "Montserrat", sans-serif;
+   font-size: 32px;
+   font-style: normal;
+   font-weight: 700; 
+   margin-bottom: 48px;
+}
+
+.flex{
+   display: flex;
+   justify-content: space-between;
+   flex-wrap: nowrap;
+}
+.top{
+   margin-bottom: 60px;
+ &__wrapper{
+   gap: 24px;
+ }
+
+ 
+}
+
+.current{
+   padding:0 24px;
+   flex-grow: 1;
+
+   &__list{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+   }
+   &__list{
+      display: flex;
+      justify-content: space-between;
+
+   }
+   &__item{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 24px;
+   }
+}
+
+.add-task{
+   padding:0 24px;
+   flex-grow: 1;
+
+   &__input{
+      max-width: 478px;
+      max-height: 48px;  
+      width: 100%;
+      padding: 12px 17px;
+     
+
+   }
+  
+   .input-wrapper{
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      
+   }
+   .add{
+      display: flex;
+      padding: 8px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100px;
+      background:  #F60;
+      gap: 10px;
+      margin-right: 24px;
+      span{
+         display: none;
+      }
+   }
+   .del{
+      padding: 20px;
+      display: none;
+      position: absolute;
+      right: 14px;
+      top:50%;
+      transition: all .4s ease;
+      transform: translateY(-50%);
+      
+   }
+   .del.hoba{
+      display: block;
+      opacity: 1;
+   }
+   &__wrapper{
+      flex-wrap: nowrap;
+   }
+}
+.tasks{
+   margin-bottom: 64px;
+   padding: 40px 0 ;
+   line-height: 26px;
+   &__list{
+      margin-bottom: 40px;
+   }
+   &__top{
+      color: $black;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      margin-bottom: 24px;
+   }
+   
+   &__item{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      margin-bottom: 20px;
+
+   }
+   &__satus{
+      margin-left: 10px;
+      background-color: #F60;
+      &:hover{
+         text-transform: uppercase;
+      }
+   }
+   .showMore{
+      display: flex;
+      justify-content: center;
+      &__btn{
+         border: 2px solid  #F60;
+         border-radius: 50px;
+         padding: 12px 32px;
+         color: #F60;
+      }
+   }
+   
+
+}
+.task-board{
+   &__top{
+      div{
+         padding: 0 24px;
+         flex-grow: 1;
+      }
+      
+   }
+   &__list{
+      min-height: 320px;
+   }
+ 
+   &__item{
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700; 
+      line-height: 24px; /* 150% */
+
+      max-width: 357px;
+      padding: 24px 32px;
+      margin-bottom: 16px;
+
+
+   }
+}
+.main{
+   padding-bottom: 60px;
+   display: flex;
+   gap: 10px;
+   border-radius: 50px;
+
+
+}
+.alert{
+   color: red;
+   display: none;
+   &.on{
+      display: block;
+   }
+}
+.popup-bc{
+   width: 100%;
+   height: 100%;
+   position: fixed;
+   background-color: #BBB8B6;
+   opacity: 0.8;
+   top:0;
+   left: 0;
+   display: none;
+   overflow: hidden;
+}
+.popClose{
+   width: 32px;
+   height: 32px;
+   background-color: red;
+}
+.popup{
+   display: none;
+   border-radius: 30px;
+   background-color: #ffff;
+   position: absolute;
+   left: 50%;
+   transform: translate(-50%,0);
+   z-index: 1;
+   &__tasks-status:hover{
+      
+      color: #ffffff;
+      background-color: #F60;
+   }
+   &__tasks-status{
+      transition: .3s all;
+      padding: 12px;
+      &.active{
+         background-color: #F60;
+      
+         color: #ffffff;
+      }
+   }
+
+   &.active{
+      display: block;
+   }
+   max-width: 375px;
+   padding: 24px;
+   .title{
+      margin-bottom: 24px;
+      font-size: 18px;
+
+   }
+   &__input{
+      display: flex;
+      align-items: center;
+      min-width: 327px;
+      margin-bottom: 55px;
+   }
+   button{
+      font-size: 14px;
+      font-weight: 700;
+
+      display: flex;
+      border-radius: 50px;
+      justify-content: center;
+      align-items: center;
+      line-height: 24px; /* 171.429% */
+   }
+   &__wrapper{
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-around;
+   }
+   &__btns{
+      display: flex;
+      justify-content: space-between;
+   }
+   .del{
+      padding: 12px 32px;
+      gap: 8px;
+      border: 2px solid  #F60;
+      
+      color: #F60;
+   }
+   .add{
+      color: #Ffff;
+      padding: 8px 24px;
+      background:  #F60;
+      
+   }
+}
