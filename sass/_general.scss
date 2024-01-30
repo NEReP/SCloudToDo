@@ -225,11 +225,18 @@ h3{
    display: none;
    border-radius: 30px;
    background-color: #ffff;
-   position: absolute;
+   // position: absolute;
+   // left: 50%;
+   // top: 30%;
+   // transform: translate(-50%,50%);
+   // z-index: 1;
+   position: fixed;
+
+   top: 50%;
    left: 50%;
-   top: 30%;
-   transform: translate(-50%,50%);
-   z-index: 1;
+   transform: translate(-50%, -50%);
+   // background-color: rgba(0, 0, 0, 0.5);
+   width: 100%;
    &__tasks-status:hover{
       
       color: #ffffff;

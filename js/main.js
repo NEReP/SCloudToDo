@@ -19,8 +19,9 @@ let dragLists = document.getElementsByClassName("task-board__list");
 let savedStatus;
 let statuses = [];
 let tasks = [];
-let taskIdCounter = 0; // Счетчик для задач
 
+
+//Генерация рандомного Id
 function generateRandomID(length) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
@@ -32,13 +33,7 @@ function generateRandomID(length) {
 
   return result;
 }
-if(tasks.length>5){
-  showMoreBtn.style.display = 'block'
-}
-else{
-  showMoreBtn.style.display = 'none'
 
-}
 // Отрисовка задач на странице
 function renderTasks() {
   tasksList.innerHTML = "";
@@ -55,7 +50,32 @@ function renderTasks() {
     createTaskElementForTaskBoard(task);
   });
   statuses = taskPopup.querySelectorAll(".tasks__status");
+  if(tasks.length>5){
+    showMoreBtn.style.display = 'block'
+  }
+  else{
+    showMoreBtn.style.display = 'none'
+
+  }
 }
+// Добавление новой задачи
+addTaskButton.addEventListener("click", function () {
+  if (taskInput.value) {
+    const newTask = {
+      id: generateRandomID(10),
+      text: taskInput.value,
+      status: "Открыт",
+    };
+
+    tasks.push(newTask);
+    
+    setToLocalStorage();
+    renderTasks();
+    updateCounters();
+    taskInput.value = "";
+    clearInputButton.style.display = "none";
+  }
+});
 
 // Отрисовка кнопки очистки
 taskInput.addEventListener("input",toggleClearButton)
@@ -126,7 +146,6 @@ tasksList.addEventListener("click", function (event) {
     const taskItem = event.target.parentNode;
     const taskId = taskItem.id;
     const currentTask = tasks.find((task) => task.id === taskId);
-    console.log(currentTask);
     showPopup(currentTask);
   }
 });
@@ -136,6 +155,9 @@ popupClose.addEventListener("click", hidePopup);
 
 // Применение изменений и закрытие попапа
 applyChangesButton.addEventListener("click", function () {
+if (popupTaskText.value) {
+  
+}
   const taskId = taskPopup.currentTask.id;
   const newText = popupTaskText.value;
 
@@ -154,23 +176,6 @@ applyChangesButton.addEventListener("click", function () {
   hidePopup();
 });
 
-// Добавление новой задачи
-addTaskButton.addEventListener("click", function () {
-  if (taskInput.value) {
-    const newTask = {
-      id: generateRandomID(10),
-      text: taskInput.value,
-      status: "Открыт",
-    };
-
-    tasks.push(newTask);
-    setToLocalStorage();
-    renderTasks();
-    updateCounters();
-    taskInput.value = "";
-    clearInputButton.style.display = "none";
-  }
-});
 
 // Удаление задачи
 deleteTaskButton.addEventListener("click", function () {
@@ -190,7 +195,6 @@ deleteTaskButton.addEventListener("click", function () {
 
 // Показ попапа
 function showPopup(currentTask) {
-  console.log(currentTask);
   // Заполнение данными из задачи
   popupTaskText.value = currentTask.text;
 
@@ -209,7 +213,9 @@ function showPopup(currentTask) {
   body.style.overflow = "hidden";
 }
 const popupBc = document.querySelector(".popup-bc");
-
+popupBc.addEventListener("click",()=>{
+  hidePopup()
+})
 // Закрытие попапа
 function hidePopup() {
   taskPopup.style.display = "none";
@@ -322,7 +328,6 @@ for (list of dragLists) {
 
 
 
-        console.log(typeof(list.dataset.status));
       }
       dragItem = null;
     });
@@ -358,12 +363,8 @@ for (list of dragLists) {
 
 }
 function findTaskItems(list, draggableItem, status) {
-  console.log(draggableItem);
   const currentTask = tasks.find((task) => task.id == draggableItem);
   currentTask.status = status
-  console.log(currentTask);
-  
-  
 }
 // Инициализация
 renderTasks();
