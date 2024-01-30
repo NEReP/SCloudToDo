@@ -109,6 +109,7 @@ h3{
       }
    }
    .del{
+      background-color: #ffff !important;
       padding-left: 20px;
       display: none;
       position: absolute;
@@ -118,10 +119,9 @@ h3{
       transform: translateY(-50%);
       
    }
-   .del.hoba{
-      display: block;
-      opacity: 1;
-   }
+
+
+
    &__wrapper{
       flex-wrap: nowrap;
    }
@@ -300,4 +300,7 @@ h3{
       background:  #F60;
       
    }
+}
+button{
+   background-color: #Ffff;
 }
