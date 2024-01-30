@@ -12,18 +12,20 @@ const taksWorkBoard = document.getElementById("at-work");
 const taksClosedBoard = document.getElementById("closed");
 const alertText = document.querySelector(".alert");
 const clearInputButton = document.querySelector(".del");
+let dragLists = document.getElementsByClassName("task-board__list");
+const body = document.querySelector("body");
 
-let savedStatus ; 
-let  statuses = [];
+let savedStatus;
+let statuses = [];
 let tasks = [];
 let taskIdCounter = 4; // Счетчик для уникальных идентификаторов задач
 
 // Отрисовка задач на странице
 function renderTasks() {
-  tasksList.innerHTML="" 
-  taksOpenBoard.innerHTML=''
-  taksWorkBoard.innerHTML=''
-  taksClosedBoard.innerHTML=''
+  tasksList.innerHTML = "";
+  taksOpenBoard.innerHTML = "";
+  taksWorkBoard.innerHTML = "";
+  taksClosedBoard.innerHTML = "";
   if (localStorage.getItem("Task")) {
     tasks = JSON.parse(localStorage.getItem("Task"));
   }
@@ -32,29 +34,22 @@ function renderTasks() {
     const taskItem = createTaskElement(task);
     tasksList.appendChild(taskItem);
     createTaskElementForTaskBoard(task);
-    
   });
-  statuses = taskPopup.querySelectorAll(".tasks__status")
-  
+  statuses = taskPopup.querySelectorAll(".tasks__status");
 }
 // Отрисовка кнопки очистки
-
-
+taskInput.addEventListener("input",toggleClearButton)
 function toggleClearButton() {
-  if (taskInput.value.trim()!=="") {
-    clearInputButton.style.display = "block"
-  
-  }
-  else{
-    clearInputButton.style.display = "none"
-    
+  if (taskInput.value.trim()) {
+    clearInputButton.style.display = "block";
+  } else {
+    clearInputButton.style.display = "none";
   }
 }
-clearInputButton.addEventListener("click", ()=>{
-  clearInputButton.style.display = "none"
-  taskInput.value=""
-})
-
+clearInputButton.addEventListener("click", () => {
+  clearInputButton.style.display = "none";
+  taskInput.value = "";
+});
 
 //Создание дом-элемента для нижнего списка
 function createTaskElementForTaskBoard(item) {
@@ -105,10 +100,10 @@ function createTaskElement(task) {
   return taskItem;
 }
 
-// Открытие попапа при клике на статус
+// Открытие попапа
 tasksList.addEventListener("click", function (event) {
-  if(event.target.className.includes("tasks__status") ){
-    const taskItem = event.target.parentNode
+  if (event.target.className.includes("tasks__status")) {
+    const taskItem = event.target.parentNode;
     const taskId = parseInt(taskItem.id, 10);
     const currentTask = tasks.find((task) => task.id === taskId);
     showPopup(currentTask);
@@ -120,27 +115,23 @@ popupClose.addEventListener("click", hidePopup);
 
 // Применение изменений и закрытие попапа
 applyChangesButton.addEventListener("click", function () {
-  
   const taskId = parseInt(taskPopup.currentTask.id, 10);
   const newText = popupTaskText.value;
- 
 
   // Обновление текста задачи и статуса
- 
+
   const updatedTask = tasks.find((task) => task.id === taskId);
   if (updatedTask) {
     updatedTask.text = newText;
     updatedTask.status = savedStatus;
   }
 
-
   // Пересортировка задач
   sortTasks();
-  setToLocalStorage()
+  setToLocalStorage();
   // Закрытие попапа
-  hidePopup()
+  hidePopup();
 });
-
 
 // Добавление новой задачи
 addTaskButton.addEventListener("click", function () {
@@ -156,7 +147,8 @@ addTaskButton.addEventListener("click", function () {
     renderTasks();
     updateCounters();
     taskInput.value = "";
-  } 
+    clearInputButton.style.display = "none";
+  }
 });
 
 // Удаление задачи
@@ -192,6 +184,7 @@ function showPopup(currentTask) {
   // Открытие попапа
   taskPopup.style.display = "block";
   popupBc.style.display = "block";
+  body.style.overflow = "hidden";
 }
 const popupBc = document.querySelector(".popup-bc");
 
@@ -199,13 +192,14 @@ const popupBc = document.querySelector(".popup-bc");
 function hidePopup() {
   taskPopup.style.display = "none";
   popupBc.style.display = "none";
+  body.style.overflow = "auto";
 }
 
 function getAvailableStatuses() {
   const availableStatuses = {
     "В работу": "В работе",
-    "Отложить": "Открыт",
-    "Закрыть": "Закрыт",
+    Отложить: "Открыт",
+    Закрыть: "Закрыт",
   };
 
   setToLocalStorage();
@@ -224,8 +218,8 @@ function updateStatusButtons(availableStatuses) {
     button.classList.add("popup__tasks-status");
     button.textContent = key;
     button.addEventListener("click", function () {
-       savedStatus  = value;
-      
+      savedStatus = value;
+
       // Пересортировка задач после изменения статyса
       sortTasks();
       setToLocalStorage();
@@ -240,7 +234,7 @@ function sortTasks() {
     const order = ["Открыт", "В работе", "Закрыт"];
     return order.indexOf(a.status) - order.indexOf(b.status);
   });
-  
+
   renderTasks();
 }
 
@@ -252,9 +246,9 @@ function updateCounters() {
 
   // Объект для хранения количества задач по каждому статусу
   const counters = {
-    "Открыт": 0,
+    Открыт: 0,
     "В работе": 0,
-    "Закрыт": 0,
+    Закрыт: 0,
   };
 
   // Подсчет количества задач для каждого статуса
@@ -262,7 +256,7 @@ function updateCounters() {
     counters[task.status]++;
   });
 
-  // Обновление текста счетчиков 
+  // Обновление текста счетчиков
   openCounter.textContent = counters["Открыт"];
   inProgressCounter.textContent = counters["В работе"];
   closedCounter.textContent = counters["Закрыт"];
@@ -277,12 +271,75 @@ function sortTasks() {
     const order = ["Открыт", "В работе", "Закрыт"];
     return order.indexOf(a.status) - order.indexOf(b.status);
   });
-  setToLocalStorage()
+  setToLocalStorage();
   renderTasks();
   updateCounters(); // функция обновления счетчиков
 }
 
+for (list of dragLists) {
+  list.addEventListener("dragstart", (e) => {
+    let dragItem = e.target;
 
+    taksOpenBoard.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
+    taksWorkBoard.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
+    taksClosedBoard.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
+    taksOpenBoard.addEventListener("drop", () => {
+      if (dragItem !== null) {
+        taksOpenBoard.appendChild(dragItem);
+        findTaskItems(taksOpenBoard, dragItem.id, taksOpenBoard.dataset.status)
+        setToLocalStorage() 
+        renderTasks();
+        updateCounters();
+
+
+
+        console.log(typeof(list.dataset.status));
+      }
+      dragItem = null;
+    });
+    taksWorkBoard.addEventListener("drop", () => {
+      if (dragItem !== null) {
+        taksWorkBoard.appendChild(dragItem);
+        findTaskItems(taksOpenBoard, dragItem.id, taksWorkBoard.dataset.status )
+        setToLocalStorage() 
+        renderTasks();
+        updateCounters();
+
+
+
+      }
+      dragItem = null;
+    });
+    taksClosedBoard.addEventListener("drop", () => {
+      if (dragItem !== null) {
+        taksClosedBoard.appendChild(dragItem);
+        findTaskItems(taksClosedBoard, dragItem.id, taksClosedBoard.dataset.status  )
+        setToLocalStorage() 
+        renderTasks();
+        updateCounters();
+      }
+      dragItem = null;
+    });
+    
+
+  });
+  // findTaskItems(taksWorkBoard, dragItem, taksWorkBoard.dataset.status )
+
+}
+function findTaskItems(list, draggableItem, status) {
+  console.log(draggableItem);
+  const currentTask = tasks.find((task) => task.id == draggableItem);
+  currentTask.status = status
+  console.log(currentTask);
+  
+  
+}
 // Инициализация
 renderTasks();
-updateCounters(); 
+updateCounters();

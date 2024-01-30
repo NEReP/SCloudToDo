@@ -31,7 +31,7 @@
                     <div class="add-task__wrapper flex ">
                        <button class="add" id="addTaskButton"><img src="./img/icons/plus.svg" alt=""><span>Добавить задачу</span></button>
                        <div class="input-wrapper">
-                           <input type="text" placeholder="Текст"  oninput="toggleClearButton()" class="add-task__input">
+                           <input type="text" placeholder="Текст" oninput="toggleClearButton()" class="add-task__input">
                            <button class="del"><img src="./img/icons/x.svg" alt=""></button>
                        </div>
                        <div class="alert">Пожалуйста напишите текст задачи</div>
@@ -43,7 +43,7 @@
            <section class="tasks">
             <div class="popup-bc"></div>
             <div class="popup" id="taskPopup">
-               <div class="popClose" id="popupClose"></div>
+               <button class="popClose" id="popupClose"><img src="./img/icons/XL_x.svg" alt=""></button>
                <h2 class="title">
                   Изменение задачи
                </h2>
@@ -74,21 +74,24 @@
               <div class="task-board__wrapper flex">
                  <div class="column" >
                     <h3>Открыто </h3>
-                    <ul class="task-board__list" id="open" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <ul 
+                    class="task-board__list" id="open" data-status="Открыт" >
                        <!-- <li class="task-board__item">Сварить пельмени</li>
                        <li class="task-board__item">Поднять инфрастуктуру проекта</li> -->
                     </ul>
                  </div>
                  <div class="column" >
                     <h3>В работе</h3>
-                    <ul class="task-board__list" id="at-work" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <ul 
+                    class="task-board__list" id="at-work" data-status="В работе" >
                        <!-- <li class="task-board__item">Проснуться, улыбнуться, сделать отжимания, слетать на Марс и прочитать книгу</li>
                        <li class="task-board__item">Поругаться с девопсом</li> -->
                     </ul>
                  </div>
                  <div class="column" >
                     <h3>Закрыто</h3>
-                    <ul class="task-board__list" id="closed" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <ul 
+                    class="task-board__list" id="closed" data-status="Закрыт" >
                        <!-- <li class="task-board__item">Спеть - Знаешь ли ты, вдоль ночных дорог</li> -->
                     </ul>
                  </div>
