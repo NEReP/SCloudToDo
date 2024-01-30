@@ -155,25 +155,27 @@ popupClose.addEventListener("click", hidePopup);
 
 // Применение изменений и закрытие попапа
 applyChangesButton.addEventListener("click", function () {
-
-  const taskId = taskPopup.currentTask.id;
-  const newText = popupTaskText.value;
-
-  // Обновление текста задачи и статуса
-
-  const updatedTask = tasks.find((task) => task.id === taskId);
-  if (updatedTask) {
-    updatedTask.text = newText;
-     
-      updatedTask.status = savedStatus || updatedTask.status;
-    
- 
+  if ( popupTaskText.value) {
+    const taskId = taskPopup.currentTask.id;
+    const newText = popupTaskText.value;
+  
+    // Обновление текста задачи и статуса
+  
+    const updatedTask = tasks.find((task) => task.id === taskId);
+    if (updatedTask) {
+      updatedTask.text = newText;
+       
+        updatedTask.status = savedStatus || updatedTask.status;
+      
+   
+    }
+  
+    // Пересортировка задач
+    sortTasks();
+    setToLocalStorage();
+    // Закрытие попапа
   }
 
-  // Пересортировка задач
-  sortTasks();
-  setToLocalStorage();
-  // Закрытие попапа
   hidePopup();
 });
 
