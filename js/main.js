@@ -155,9 +155,7 @@ popupClose.addEventListener("click", hidePopup);
 
 // Применение изменений и закрытие попапа
 applyChangesButton.addEventListener("click", function () {
-if (popupTaskText.value) {
-  
-}
+
   const taskId = taskPopup.currentTask.id;
   const newText = popupTaskText.value;
 
@@ -166,7 +164,10 @@ if (popupTaskText.value) {
   const updatedTask = tasks.find((task) => task.id === taskId);
   if (updatedTask) {
     updatedTask.text = newText;
-    updatedTask.status = savedStatus;
+     
+      updatedTask.status = savedStatus || updatedTask.status;
+    
+ 
   }
 
   // Пересортировка задач
