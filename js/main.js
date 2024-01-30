@@ -18,7 +18,19 @@ const body = document.querySelector("body");
 let savedStatus;
 let statuses = [];
 let tasks = [];
-let taskIdCounter = 4; // Счетчик для уникальных идентификаторов задач
+let taskIdCounter = 0; // Счетчик для задач
+
+function generateRandomID(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+  }
+
+  return result;
+}
 
 // Отрисовка задач на странице
 function renderTasks() {
@@ -37,6 +49,7 @@ function renderTasks() {
   });
   statuses = taskPopup.querySelectorAll(".tasks__status");
 }
+
 // Отрисовка кнопки очистки
 taskInput.addEventListener("input",toggleClearButton)
 function toggleClearButton() {
@@ -104,18 +117,19 @@ function createTaskElement(task) {
 tasksList.addEventListener("click", function (event) {
   if (event.target.className.includes("tasks__status")) {
     const taskItem = event.target.parentNode;
-    const taskId = parseInt(taskItem.id, 10);
+    const taskId = taskItem.id;
     const currentTask = tasks.find((task) => task.id === taskId);
+    console.log(currentTask);
     showPopup(currentTask);
   }
 });
 
-// Закрытие попапа по клику на крестик
+// Закрытие попап по клику на крестик
 popupClose.addEventListener("click", hidePopup);
 
 // Применение изменений и закрытие попапа
 applyChangesButton.addEventListener("click", function () {
-  const taskId = parseInt(taskPopup.currentTask.id, 10);
+  const taskId = taskPopup.currentTask.id;
   const newText = popupTaskText.value;
 
   // Обновление текста задачи и статуса
@@ -137,7 +151,7 @@ applyChangesButton.addEventListener("click", function () {
 addTaskButton.addEventListener("click", function () {
   if (taskInput.value) {
     const newTask = {
-      id: taskIdCounter++,
+      id: generateRandomID(10),
       text: taskInput.value,
       status: "Открыт",
     };
@@ -154,7 +168,7 @@ addTaskButton.addEventListener("click", function () {
 // Удаление задачи
 deleteTaskButton.addEventListener("click", function () {
   if (taskPopup.currentTask) {
-    const taskId = parseInt(taskPopup.currentTask.id, 10);
+    const taskId = taskPopup.currentTask.id;
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
 
     if (taskIndex !== -1) {
@@ -169,6 +183,7 @@ deleteTaskButton.addEventListener("click", function () {
 
 // Показ попапа
 function showPopup(currentTask) {
+  console.log(currentTask);
   // Заполнение данными из задачи
   popupTaskText.value = currentTask.text;
 
@@ -244,19 +259,19 @@ function updateCounters() {
   const inProgressCounter = document.querySelector(".inProgressCounter");
   const closedCounter = document.querySelector(".closedCounter");
 
-  // Объект для хранения количества задач по каждому статусу
+  // Объект для хранения кол-ва задач по статусам
   const counters = {
     Открыт: 0,
     "В работе": 0,
     Закрыт: 0,
   };
 
-  // Подсчет количества задач для каждого статуса
+  // Подсчет задач для каждого статуса
   tasks.forEach((task) => {
     counters[task.status]++;
   });
 
-  // Обновление текста счетчиков
+  // Обновление счетчиков
   openCounter.textContent = counters["Открыт"];
   inProgressCounter.textContent = counters["В работе"];
   closedCounter.textContent = counters["Закрыт"];
@@ -275,7 +290,7 @@ function sortTasks() {
   renderTasks();
   updateCounters(); // функция обновления счетчиков
 }
-
+//d
 for (list of dragLists) {
   list.addEventListener("dragstart", (e) => {
     let dragItem = e.target;
@@ -296,6 +311,7 @@ for (list of dragLists) {
         setToLocalStorage() 
         renderTasks();
         updateCounters();
+        sortTasks()
 
 
 
@@ -310,6 +326,7 @@ for (list of dragLists) {
         setToLocalStorage() 
         renderTasks();
         updateCounters();
+        sortTasks()
 
 
 
@@ -323,6 +340,7 @@ for (list of dragLists) {
         setToLocalStorage() 
         renderTasks();
         updateCounters();
+        sortTasks()
       }
       dragItem = null;
     });
