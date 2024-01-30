@@ -12,9 +12,10 @@ const taksWorkBoard = document.getElementById("at-work");
 const taksClosedBoard = document.getElementById("closed");
 const alertText = document.querySelector(".alert");
 const clearInputButton = document.querySelector(".del");
-let dragLists = document.getElementsByClassName("task-board__list");
 const body = document.querySelector("body");
+const showMoreBtn= document.querySelector(".showMore__btn");
 
+let dragLists = document.getElementsByClassName("task-board__list");
 let savedStatus;
 let statuses = [];
 let tasks = [];
@@ -31,7 +32,13 @@ function generateRandomID(length) {
 
   return result;
 }
+if(tasks.length>5){
+  showMoreBtn.style.display = 'block'
+}
+else{
+  showMoreBtn.style.display = 'none'
 
+}
 // Отрисовка задач на странице
 function renderTasks() {
   tasksList.innerHTML = "";
@@ -290,7 +297,7 @@ function sortTasks() {
   renderTasks();
   updateCounters(); // функция обновления счетчиков
 }
-//d
+
 for (list of dragLists) {
   list.addEventListener("dragstart", (e) => {
     let dragItem = e.target;
